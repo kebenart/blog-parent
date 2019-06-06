@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.meiling.dao.DiscussMapper" >
+  <resultMap id="BaseResultMap" type="org.meiling.entity.Discuss" >
+    <id column="d_id" property="dId" jdbcType="VARCHAR" />
+    <result column="e_id" property="eId" jdbcType="VARCHAR" />
+    <result column="d_name" property="dName" jdbcType="VARCHAR" />
+    <result column="d_content" property="dContent" jdbcType="VARCHAR" />
+    <result column="d_time" property="dTime" jdbcType="TIMESTAMP" />
+    <result column="d_state" property="dState" jdbcType="VARCHAR" />
+    <result column="d_level" property="dLevel" jdbcType="DECIMAL" />
+    <result column="d_pId" property="dPid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    d_id, e_id, d_name, d_content, d_time, d_state, d_level, d_pId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.meiling.entity.DiscussExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from discuss
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from discuss
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from discuss
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.meiling.entity.DiscussExample" >
+    delete from discuss
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.meiling.entity.Discuss" >
+    insert into discuss (d_id, e_id, d_name, 
+      d_content, d_time, d_state, 
+      d_level, d_pId)
+    values (#{dId,jdbcType=VARCHAR}, #{eId,jdbcType=VARCHAR}, #{dName,jdbcType=VARCHAR}, 
+      #{dContent,jdbcType=VARCHAR}, #{dTime,jdbcType=TIMESTAMP}, #{dState,jdbcType=VARCHAR}, 
+      #{dLevel,jdbcType=DECIMAL}, #{dPid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.meiling.entity.Discuss" >
+    insert into discuss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="eId != null" >
+        e_id,
+      </if>
+      <if test="dName != null" >
+        d_name,
+      </if>
+      <if test="dContent != null" >
+        d_content,
+      </if>
+      <if test="dTime != null" >
+        d_time,
+      </if>
+      <if test="dState != null" >
+        d_state,
+      </if>
+      <if test="dLevel != null" >
+        d_level,
+      </if>
+      <if test="dPid != null" >
+        d_pId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="eId != null" >
+        #{eId,jdbcType=VARCHAR},
+      </if>
+      <if test="dName != null" >
+        #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dContent != null" >
+        #{dContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dTime != null" >
+        #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dState != null" >
+        #{dState,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevel != null" >
+        #{dLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="dPid != null" >
+        #{dPid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.meiling.entity.DiscussExample" resultType="java.lang.Integer" >
+    select count(*) from discuss
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update discuss
+    <set >
+      <if test="record.dId != null" >
+        d_id = #{record.dId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eId != null" >
+        e_id = #{record.eId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dName != null" >
+        d_name = #{record.dName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dContent != null" >
+        d_content = #{record.dContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dTime != null" >
+        d_time = #{record.dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dState != null" >
+        d_state = #{record.dState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dLevel != null" >
+        d_level = #{record.dLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dPid != null" >
+        d_pId = #{record.dPid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update discuss
+    set d_id = #{record.dId,jdbcType=VARCHAR},
+      e_id = #{record.eId,jdbcType=VARCHAR},
+      d_name = #{record.dName,jdbcType=VARCHAR},
+      d_content = #{record.dContent,jdbcType=VARCHAR},
+      d_time = #{record.dTime,jdbcType=TIMESTAMP},
+      d_state = #{record.dState,jdbcType=VARCHAR},
+      d_level = #{record.dLevel,jdbcType=DECIMAL},
+      d_pId = #{record.dPid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.meiling.entity.Discuss" >
+    update discuss
+    <set >
+      <if test="eId != null" >
+        e_id = #{eId,jdbcType=VARCHAR},
+      </if>
+      <if test="dName != null" >
+        d_name = #{dName,jdbcType=VARCHAR},
+      </if>
+      <if test="dContent != null" >
+        d_content = #{dContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dTime != null" >
+        d_time = #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dState != null" >
+        d_state = #{dState,jdbcType=VARCHAR},
+      </if>
+      <if test="dLevel != null" >
+        d_level = #{dLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="dPid != null" >
+        d_pId = #{dPid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.meiling.entity.Discuss" >
+    update discuss
+    set e_id = #{eId,jdbcType=VARCHAR},
+      d_name = #{dName,jdbcType=VARCHAR},
+      d_content = #{dContent,jdbcType=VARCHAR},
+      d_time = #{dTime,jdbcType=TIMESTAMP},
+      d_state = #{dState,jdbcType=VARCHAR},
+      d_level = #{dLevel,jdbcType=DECIMAL},
+      d_pId = #{dPid,jdbcType=VARCHAR}
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+</mapper>

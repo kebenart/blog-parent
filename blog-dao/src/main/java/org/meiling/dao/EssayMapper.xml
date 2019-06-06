@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.meiling.dao.EssayMapper" >
+  <resultMap id="BaseResultMap" type="org.meiling.entity.Essay" >
+    <id column="e_id" property="eId" jdbcType="VARCHAR" />
+    <result column="c_id" property="cId" jdbcType="VARCHAR" />
+    <result column="e_title" property="eTitle" jdbcType="VARCHAR" />
+    <result column="e_state" property="eState" jdbcType="VARCHAR" />
+    <result column="e_pageView" property="ePageview" jdbcType="DECIMAL" />
+    <result column="e_goods" property="eGoods" jdbcType="DECIMAL" />
+    <result column="e_promulgator" property="ePromulgator" jdbcType="VARCHAR" />
+    <result column="e_createTime" property="eCreatetime" jdbcType="TIMESTAMP" />
+    <result column="e_settingTime" property="eSettingtime" jdbcType="TIMESTAMP" />
+    <result column="e_isSay" property="eIssay" jdbcType="VARCHAR" />
+    <result column="e_photo" property="ePhoto" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.meiling.entity.Essay" extends="BaseResultMap" >
+    <result column="e_content" property="eContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    e_id, c_id, e_title, e_state, e_pageView, e_goods, e_promulgator, e_createTime, e_settingTime, 
+    e_isSay, e_photo
+  </sql>
+  <sql id="Blob_Column_List" >
+    e_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.meiling.entity.EssayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from essay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.meiling.entity.EssayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from essay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from essay
+    where e_id = #{eId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from essay
+    where e_id = #{eId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.meiling.entity.EssayExample" >
+    delete from essay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.meiling.entity.Essay" >
+    insert into essay (e_id, c_id, e_title, 
+      e_state, e_pageView, e_goods, 
+      e_promulgator, e_createTime, e_settingTime, 
+      e_isSay, e_photo, e_content
+      )
+    values (#{eId,jdbcType=VARCHAR}, #{cId,jdbcType=VARCHAR}, #{eTitle,jdbcType=VARCHAR}, 
+      #{eState,jdbcType=VARCHAR}, #{ePageview,jdbcType=DECIMAL}, #{eGoods,jdbcType=DECIMAL}, 
+      #{ePromulgator,jdbcType=VARCHAR}, #{eCreatetime,jdbcType=TIMESTAMP}, #{eSettingtime,jdbcType=TIMESTAMP}, 
+      #{eIssay,jdbcType=VARCHAR}, #{ePhoto,jdbcType=VARCHAR}, #{eContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.meiling.entity.Essay" >
+    insert into essay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eId != null" >
+        e_id,
+      </if>
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="eTitle != null" >
+        e_title,
+      </if>
+      <if test="eState != null" >
+        e_state,
+      </if>
+      <if test="ePageview != null" >
+        e_pageView,
+      </if>
+      <if test="eGoods != null" >
+        e_goods,
+      </if>
+      <if test="ePromulgator != null" >
+        e_promulgator,
+      </if>
+      <if test="eCreatetime != null" >
+        e_createTime,
+      </if>
+      <if test="eSettingtime != null" >
+        e_settingTime,
+      </if>
+      <if test="eIssay != null" >
+        e_isSay,
+      </if>
+      <if test="ePhoto != null" >
+        e_photo,
+      </if>
+      <if test="eContent != null" >
+        e_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eId != null" >
+        #{eId,jdbcType=VARCHAR},
+      </if>
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="eTitle != null" >
+        #{eTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="eState != null" >
+        #{eState,jdbcType=VARCHAR},
+      </if>
+      <if test="ePageview != null" >
+        #{ePageview,jdbcType=DECIMAL},
+      </if>
+      <if test="eGoods != null" >
+        #{eGoods,jdbcType=DECIMAL},
+      </if>
+      <if test="ePromulgator != null" >
+        #{ePromulgator,jdbcType=VARCHAR},
+      </if>
+      <if test="eCreatetime != null" >
+        #{eCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eSettingtime != null" >
+        #{eSettingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eIssay != null" >
+        #{eIssay,jdbcType=VARCHAR},
+      </if>
+      <if test="ePhoto != null" >
+        #{ePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="eContent != null" >
+        #{eContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.meiling.entity.EssayExample" resultType="java.lang.Integer" >
+    select count(*) from essay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update essay
+    <set >
+      <if test="record.eId != null" >
+        e_id = #{record.eId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cId != null" >
+        c_id = #{record.cId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eTitle != null" >
+        e_title = #{record.eTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eState != null" >
+        e_state = #{record.eState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ePageview != null" >
+        e_pageView = #{record.ePageview,jdbcType=DECIMAL},
+      </if>
+      <if test="record.eGoods != null" >
+        e_goods = #{record.eGoods,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ePromulgator != null" >
+        e_promulgator = #{record.ePromulgator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eCreatetime != null" >
+        e_createTime = #{record.eCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eSettingtime != null" >
+        e_settingTime = #{record.eSettingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eIssay != null" >
+        e_isSay = #{record.eIssay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ePhoto != null" >
+        e_photo = #{record.ePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eContent != null" >
+        e_content = #{record.eContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update essay
+    set e_id = #{record.eId,jdbcType=VARCHAR},
+      c_id = #{record.cId,jdbcType=VARCHAR},
+      e_title = #{record.eTitle,jdbcType=VARCHAR},
+      e_state = #{record.eState,jdbcType=VARCHAR},
+      e_pageView = #{record.ePageview,jdbcType=DECIMAL},
+      e_goods = #{record.eGoods,jdbcType=DECIMAL},
+      e_promulgator = #{record.ePromulgator,jdbcType=VARCHAR},
+      e_createTime = #{record.eCreatetime,jdbcType=TIMESTAMP},
+      e_settingTime = #{record.eSettingtime,jdbcType=TIMESTAMP},
+      e_isSay = #{record.eIssay,jdbcType=VARCHAR},
+      e_photo = #{record.ePhoto,jdbcType=VARCHAR},
+      e_content = #{record.eContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update essay
+    set e_id = #{record.eId,jdbcType=VARCHAR},
+      c_id = #{record.cId,jdbcType=VARCHAR},
+      e_title = #{record.eTitle,jdbcType=VARCHAR},
+      e_state = #{record.eState,jdbcType=VARCHAR},
+      e_pageView = #{record.ePageview,jdbcType=DECIMAL},
+      e_goods = #{record.eGoods,jdbcType=DECIMAL},
+      e_promulgator = #{record.ePromulgator,jdbcType=VARCHAR},
+      e_createTime = #{record.eCreatetime,jdbcType=TIMESTAMP},
+      e_settingTime = #{record.eSettingtime,jdbcType=TIMESTAMP},
+      e_isSay = #{record.eIssay,jdbcType=VARCHAR},
+      e_photo = #{record.ePhoto,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.meiling.entity.Essay" >
+    update essay
+    <set >
+      <if test="cId != null" >
+        c_id = #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="eTitle != null" >
+        e_title = #{eTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="eState != null" >
+        e_state = #{eState,jdbcType=VARCHAR},
+      </if>
+      <if test="ePageview != null" >
+        e_pageView = #{ePageview,jdbcType=DECIMAL},
+      </if>
+      <if test="eGoods != null" >
+        e_goods = #{eGoods,jdbcType=DECIMAL},
+      </if>
+      <if test="ePromulgator != null" >
+        e_promulgator = #{ePromulgator,jdbcType=VARCHAR},
+      </if>
+      <if test="eCreatetime != null" >
+        e_createTime = #{eCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eSettingtime != null" >
+        e_settingTime = #{eSettingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eIssay != null" >
+        e_isSay = #{eIssay,jdbcType=VARCHAR},
+      </if>
+      <if test="ePhoto != null" >
+        e_photo = #{ePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="eContent != null" >
+        e_content = #{eContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where e_id = #{eId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.meiling.entity.Essay" >
+    update essay
+    set c_id = #{cId,jdbcType=VARCHAR},
+      e_title = #{eTitle,jdbcType=VARCHAR},
+      e_state = #{eState,jdbcType=VARCHAR},
+      e_pageView = #{ePageview,jdbcType=DECIMAL},
+      e_goods = #{eGoods,jdbcType=DECIMAL},
+      e_promulgator = #{ePromulgator,jdbcType=VARCHAR},
+      e_createTime = #{eCreatetime,jdbcType=TIMESTAMP},
+      e_settingTime = #{eSettingtime,jdbcType=TIMESTAMP},
+      e_isSay = #{eIssay,jdbcType=VARCHAR},
+      e_photo = #{ePhoto,jdbcType=VARCHAR},
+      e_content = #{eContent,jdbcType=LONGVARCHAR}
+    where e_id = #{eId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.meiling.entity.Essay" >
+    update essay
+    set c_id = #{cId,jdbcType=VARCHAR},
+      e_title = #{eTitle,jdbcType=VARCHAR},
+      e_state = #{eState,jdbcType=VARCHAR},
+      e_pageView = #{ePageview,jdbcType=DECIMAL},
+      e_goods = #{eGoods,jdbcType=DECIMAL},
+      e_promulgator = #{ePromulgator,jdbcType=VARCHAR},
+      e_createTime = #{eCreatetime,jdbcType=TIMESTAMP},
+      e_settingTime = #{eSettingtime,jdbcType=TIMESTAMP},
+      e_isSay = #{eIssay,jdbcType=VARCHAR},
+      e_photo = #{ePhoto,jdbcType=VARCHAR}
+    where e_id = #{eId,jdbcType=VARCHAR}
+  </update>
+</mapper>

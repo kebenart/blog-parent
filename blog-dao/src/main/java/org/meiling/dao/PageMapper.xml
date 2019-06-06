@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.meiling.dao.PageMapper" >
+  <resultMap id="BaseResultMap" type="org.meiling.entity.Page" >
+    <id column="p_id" property="pId" jdbcType="VARCHAR" />
+    <result column="p_name" property="pName" jdbcType="VARCHAR" />
+    <result column="p_path" property="pPath" jdbcType="VARCHAR" />
+    <result column="p_createTime" property="pCreatetime" jdbcType="TIMESTAMP" />
+    <result column="p_state" property="pState" jdbcType="VARCHAR" />
+    <result column="p_isSay" property="pIssay" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="org.meiling.entity.Page" extends="BaseResultMap" >
+    <result column="p_content" property="pContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    p_id, p_name, p_path, p_createTime, p_state, p_isSay
+  </sql>
+  <sql id="Blob_Column_List" >
+    p_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.meiling.entity.PageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.meiling.entity.PageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from page
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from page
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.meiling.entity.PageExample" >
+    delete from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.meiling.entity.Page" >
+    insert into page (p_id, p_name, p_path, 
+      p_createTime, p_state, p_isSay, 
+      p_content)
+    values (#{pId,jdbcType=VARCHAR}, #{pName,jdbcType=VARCHAR}, #{pPath,jdbcType=VARCHAR}, 
+      #{pCreatetime,jdbcType=TIMESTAMP}, #{pState,jdbcType=VARCHAR}, #{pIssay,jdbcType=VARCHAR}, 
+      #{pContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.meiling.entity.Page" >
+    insert into page
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="pName != null" >
+        p_name,
+      </if>
+      <if test="pPath != null" >
+        p_path,
+      </if>
+      <if test="pCreatetime != null" >
+        p_createTime,
+      </if>
+      <if test="pState != null" >
+        p_state,
+      </if>
+      <if test="pIssay != null" >
+        p_isSay,
+      </if>
+      <if test="pContent != null" >
+        p_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="pName != null" >
+        #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pPath != null" >
+        #{pPath,jdbcType=VARCHAR},
+      </if>
+      <if test="pCreatetime != null" >
+        #{pCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pState != null" >
+        #{pState,jdbcType=VARCHAR},
+      </if>
+      <if test="pIssay != null" >
+        #{pIssay,jdbcType=VARCHAR},
+      </if>
+      <if test="pContent != null" >
+        #{pContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.meiling.entity.PageExample" resultType="java.lang.Integer" >
+    select count(*) from page
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update page
+    <set >
+      <if test="record.pId != null" >
+        p_id = #{record.pId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pName != null" >
+        p_name = #{record.pName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPath != null" >
+        p_path = #{record.pPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pCreatetime != null" >
+        p_createTime = #{record.pCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pState != null" >
+        p_state = #{record.pState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pIssay != null" >
+        p_isSay = #{record.pIssay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pContent != null" >
+        p_content = #{record.pContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update page
+    set p_id = #{record.pId,jdbcType=VARCHAR},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      p_path = #{record.pPath,jdbcType=VARCHAR},
+      p_createTime = #{record.pCreatetime,jdbcType=TIMESTAMP},
+      p_state = #{record.pState,jdbcType=VARCHAR},
+      p_isSay = #{record.pIssay,jdbcType=VARCHAR},
+      p_content = #{record.pContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update page
+    set p_id = #{record.pId,jdbcType=VARCHAR},
+      p_name = #{record.pName,jdbcType=VARCHAR},
+      p_path = #{record.pPath,jdbcType=VARCHAR},
+      p_createTime = #{record.pCreatetime,jdbcType=TIMESTAMP},
+      p_state = #{record.pState,jdbcType=VARCHAR},
+      p_isSay = #{record.pIssay,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.meiling.entity.Page" >
+    update page
+    <set >
+      <if test="pName != null" >
+        p_name = #{pName,jdbcType=VARCHAR},
+      </if>
+      <if test="pPath != null" >
+        p_path = #{pPath,jdbcType=VARCHAR},
+      </if>
+      <if test="pCreatetime != null" >
+        p_createTime = #{pCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pState != null" >
+        p_state = #{pState,jdbcType=VARCHAR},
+      </if>
+      <if test="pIssay != null" >
+        p_isSay = #{pIssay,jdbcType=VARCHAR},
+      </if>
+      <if test="pContent != null" >
+        p_content = #{pContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.meiling.entity.Page" >
+    update page
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_path = #{pPath,jdbcType=VARCHAR},
+      p_createTime = #{pCreatetime,jdbcType=TIMESTAMP},
+      p_state = #{pState,jdbcType=VARCHAR},
+      p_isSay = #{pIssay,jdbcType=VARCHAR},
+      p_content = #{pContent,jdbcType=LONGVARCHAR}
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.meiling.entity.Page" >
+    update page
+    set p_name = #{pName,jdbcType=VARCHAR},
+      p_path = #{pPath,jdbcType=VARCHAR},
+      p_createTime = #{pCreatetime,jdbcType=TIMESTAMP},
+      p_state = #{pState,jdbcType=VARCHAR},
+      p_isSay = #{pIssay,jdbcType=VARCHAR}
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </update>
+</mapper>

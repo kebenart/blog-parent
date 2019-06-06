@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="org.meiling.dao.SettingsMapper" >
+	  <resultMap id="BaseResultMap" type="org.meiling.entity.Settings" >
+	    <id column="s_id" property="sId" jdbcType="VARCHAR" />
+	    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+	    <result column="s_remark" property="sRemark" jdbcType="VARCHAR" />
+	    <result column="s_headImg" property="sHeadimg" jdbcType="VARCHAR" />
+	    <result column="s_bgImg" property="sBgimg" jdbcType="VARCHAR" />
+	    <result column="s_title" property="sTitle" jdbcType="VARCHAR" />
+	    <result column="s_headRemark" property="sHeadremark" jdbcType="VARCHAR" />
+	    <result column="s_weibo" property="sWeibo" jdbcType="VARCHAR" />
+	    <result column="s_weixin" property="sWeixin" jdbcType="VARCHAR" />
+	    <result column="s_qq" property="sQq" jdbcType="VARCHAR" />
+	    <result column="s_qqs" property="sQqs" jdbcType="VARCHAR" />
+	    <result column="s_zfbPay" property="sZfbpay" jdbcType="VARCHAR" />
+	    <result column="s_wxPay" property="sWxpay" jdbcType="VARCHAR" />
+	    <result column="s_mywx" property="sMywx" jdbcType="VARCHAR" />
+	    <result column="s_headImgBg" property="sHeadimgbg" jdbcType="VARCHAR" />
+	  </resultMap>
+	  <resultMap id="ResultMapWithBLOBs" type="org.meiling.entity.Settings" extends="BaseResultMap" >
+	    <result column="s_hmd" property="sHmd" jdbcType="LONGVARCHAR" />
+	  </resultMap>
+	  <sql id="Example_Where_Clause" >
+	    <where >
+	      <foreach collection="oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and ${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and ${criterion.condition} #{criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+	                </when>
+	                <when test="criterion.listValue" >
+	                  and ${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	    </where>
+	  </sql>
+	  <sql id="Update_By_Example_Where_Clause" >
+	    <where >
+	      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+	        <if test="criteria.valid" >
+	          <trim prefix="(" suffix=")" prefixOverrides="and" >
+	            <foreach collection="criteria.criteria" item="criterion" >
+	              <choose >
+	                <when test="criterion.noValue" >
+	                  and ${criterion.condition}
+	                </when>
+	                <when test="criterion.singleValue" >
+	                  and ${criterion.condition} #{criterion.value}
+	                </when>
+	                <when test="criterion.betweenValue" >
+	                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+	                </when>
+	                <when test="criterion.listValue" >
+	                  and ${criterion.condition}
+	                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+	                    #{listItem}
+	                  </foreach>
+	                </when>
+	              </choose>
+	            </foreach>
+	          </trim>
+	        </if>
+	      </foreach>
+	    </where>
+	  </sql>
+	  <sql id="Base_Column_List" >
+	    s_id, s_name, s_remark, s_headImg, s_bgImg, s_title, s_headRemark, s_weibo, s_weixin, 
+	    s_qq, s_qqs, s_zfbPay, s_wxPay, s_mywx, s_headImgBg
+	  </sql>
+	  <sql id="Blob_Column_List" >
+	    s_hmd
+	  </sql>
+	  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="org.meiling.entity.SettingsExample" >
+	    select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    <include refid="Base_Column_List" />
+	    ,
+	    <include refid="Blob_Column_List" />
+	    from settings
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null" >
+	      order by ${orderByClause}
+	    </if>
+	  </select>
+	  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.meiling.entity.SettingsExample" >
+	    select
+	    <if test="distinct" >
+	      distinct
+	    </if>
+	    <include refid="Base_Column_List" />
+	    from settings
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null" >
+	      order by ${orderByClause}
+	    </if>
+	  </select>
+	  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    ,
+	    <include refid="Blob_Column_List" />
+	    from settings
+	    where s_id = #{sId,jdbcType=VARCHAR}
+	  </select>
+	  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+	    delete from settings
+	    where s_id = #{sId,jdbcType=VARCHAR}
+	  </delete>
+	  <delete id="deleteByExample" parameterType="org.meiling.entity.SettingsExample" >
+	    delete from settings
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	  </delete>
+	  <insert id="insert" parameterType="org.meiling.entity.Settings" >
+	    insert into settings (s_id, s_name, s_remark, 
+	      s_headImg, s_bgImg, s_title, 
+	      s_headRemark, s_weibo, s_weixin, 
+	      s_qq, s_qqs, s_zfbPay, 
+	      s_wxPay, s_mywx, s_headImgBg, 
+	      s_hmd)
+	    values (#{sId,jdbcType=VARCHAR}, #{sName,jdbcType=VARCHAR}, #{sRemark,jdbcType=VARCHAR}, 
+	      #{sHeadimg,jdbcType=VARCHAR}, #{sBgimg,jdbcType=VARCHAR}, #{sTitle,jdbcType=VARCHAR}, 
+	      #{sHeadremark,jdbcType=VARCHAR}, #{sWeibo,jdbcType=VARCHAR}, #{sWeixin,jdbcType=VARCHAR}, 
+	      #{sQq,jdbcType=VARCHAR}, #{sQqs,jdbcType=VARCHAR}, #{sZfbpay,jdbcType=VARCHAR}, 
+	      #{sWxpay,jdbcType=VARCHAR}, #{sMywx,jdbcType=VARCHAR}, #{sHeadimgbg,jdbcType=VARCHAR}, 
+	      #{sHmd,jdbcType=LONGVARCHAR})
+	  </insert>
+	  <insert id="insertSelective" parameterType="org.meiling.entity.Settings" >
+	    insert into settings
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="sId != null" >
+	        s_id,
+	      </if>
+	      <if test="sName != null" >
+	        s_name,
+	      </if>
+	      <if test="sRemark != null" >
+	        s_remark,
+	      </if>
+	      <if test="sHeadimg != null" >
+	        s_headImg,
+	      </if>
+	      <if test="sBgimg != null" >
+	        s_bgImg,
+	      </if>
+	      <if test="sTitle != null" >
+	        s_title,
+	      </if>
+	      <if test="sHeadremark != null" >
+	        s_headRemark,
+	      </if>
+	      <if test="sWeibo != null" >
+	        s_weibo,
+	      </if>
+	      <if test="sWeixin != null" >
+	        s_weixin,
+	      </if>
+	      <if test="sQq != null" >
+	        s_qq,
+	      </if>
+	      <if test="sQqs != null" >
+	        s_qqs,
+	      </if>
+	      <if test="sZfbpay != null" >
+	        s_zfbPay,
+	      </if>
+	      <if test="sWxpay != null" >
+	        s_wxPay,
+	      </if>
+	      <if test="sMywx != null" >
+	        s_mywx,
+	      </if>
+	      <if test="sHeadimgbg != null" >
+	        s_headImgBg,
+	      </if>
+	      <if test="sHmd != null" >
+	        s_hmd,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="sId != null" >
+	        #{sId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sName != null" >
+	        #{sName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sRemark != null" >
+	        #{sRemark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHeadimg != null" >
+	        #{sHeadimg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sBgimg != null" >
+	        #{sBgimg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sTitle != null" >
+	        #{sTitle,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHeadremark != null" >
+	        #{sHeadremark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sWeibo != null" >
+	        #{sWeibo,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sWeixin != null" >
+	        #{sWeixin,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sQq != null" >
+	        #{sQq,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sQqs != null" >
+	        #{sQqs,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sZfbpay != null" >
+	        #{sZfbpay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sWxpay != null" >
+	        #{sWxpay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sMywx != null" >
+	        #{sMywx,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHeadimgbg != null" >
+	        #{sHeadimgbg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHmd != null" >
+	        #{sHmd,jdbcType=LONGVARCHAR},
+	      </if>
+	    </trim>
+	  </insert>
+	  <select id="countByExample" parameterType="org.meiling.entity.SettingsExample" resultType="java.lang.Integer" >
+	    select count(*) from settings
+	    <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	  </select>
+	  <update id="updateByExampleSelective" parameterType="map" >
+	    update settings
+	    <set >
+	      <if test="record.sId != null" >
+	        s_id = #{record.sId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sName != null" >
+	        s_name = #{record.sName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sRemark != null" >
+	        s_remark = #{record.sRemark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sHeadimg != null" >
+	        s_headImg = #{record.sHeadimg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sBgimg != null" >
+	        s_bgImg = #{record.sBgimg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sTitle != null" >
+	        s_title = #{record.sTitle,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sHeadremark != null" >
+	        s_headRemark = #{record.sHeadremark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sWeibo != null" >
+	        s_weibo = #{record.sWeibo,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sWeixin != null" >
+	        s_weixin = #{record.sWeixin,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sQq != null" >
+	        s_qq = #{record.sQq,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sQqs != null" >
+	        s_qqs = #{record.sQqs,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sZfbpay != null" >
+	        s_zfbPay = #{record.sZfbpay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sWxpay != null" >
+	        s_wxPay = #{record.sWxpay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sMywx != null" >
+	        s_mywx = #{record.sMywx,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sHeadimgbg != null" >
+	        s_headImgBg = #{record.sHeadimgbg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="record.sHmd != null" >
+	        s_hmd = #{record.sHmd,jdbcType=LONGVARCHAR},
+	      </if>
+	    </set>
+	    <if test="_parameter != null" >
+	      <include refid="Update_By_Example_Where_Clause" />
+	    </if>
+	  </update>
+	  <update id="updateByExampleWithBLOBs" parameterType="map" >
+	    update settings
+	    set s_id = #{record.sId,jdbcType=VARCHAR},
+	      s_name = #{record.sName,jdbcType=VARCHAR},
+	      s_remark = #{record.sRemark,jdbcType=VARCHAR},
+	      s_headImg = #{record.sHeadimg,jdbcType=VARCHAR},
+	      s_bgImg = #{record.sBgimg,jdbcType=VARCHAR},
+	      s_title = #{record.sTitle,jdbcType=VARCHAR},
+	      s_headRemark = #{record.sHeadremark,jdbcType=VARCHAR},
+	      s_weibo = #{record.sWeibo,jdbcType=VARCHAR},
+	      s_weixin = #{record.sWeixin,jdbcType=VARCHAR},
+	      s_qq = #{record.sQq,jdbcType=VARCHAR},
+	      s_qqs = #{record.sQqs,jdbcType=VARCHAR},
+	      s_zfbPay = #{record.sZfbpay,jdbcType=VARCHAR},
+	      s_wxPay = #{record.sWxpay,jdbcType=VARCHAR},
+	      s_mywx = #{record.sMywx,jdbcType=VARCHAR},
+	      s_headImgBg = #{record.sHeadimgbg,jdbcType=VARCHAR},
+	      s_hmd = #{record.sHmd,jdbcType=LONGVARCHAR}
+	    <if test="_parameter != null" >
+	      <include refid="Update_By_Example_Where_Clause" />
+	    </if>
+	  </update>
+	  <update id="updateByExample" parameterType="map" >
+	    update settings
+	    set s_id = #{record.sId,jdbcType=VARCHAR},
+	      s_name = #{record.sName,jdbcType=VARCHAR},
+	      s_remark = #{record.sRemark,jdbcType=VARCHAR},
+	      s_headImg = #{record.sHeadimg,jdbcType=VARCHAR},
+	      s_bgImg = #{record.sBgimg,jdbcType=VARCHAR},
+	      s_title = #{record.sTitle,jdbcType=VARCHAR},
+	      s_headRemark = #{record.sHeadremark,jdbcType=VARCHAR},
+	      s_weibo = #{record.sWeibo,jdbcType=VARCHAR},
+	      s_weixin = #{record.sWeixin,jdbcType=VARCHAR},
+	      s_qq = #{record.sQq,jdbcType=VARCHAR},
+	      s_qqs = #{record.sQqs,jdbcType=VARCHAR},
+	      s_zfbPay = #{record.sZfbpay,jdbcType=VARCHAR},
+	      s_wxPay = #{record.sWxpay,jdbcType=VARCHAR},
+	      s_mywx = #{record.sMywx,jdbcType=VARCHAR},
+	      s_headImgBg = #{record.sHeadimgbg,jdbcType=VARCHAR}
+	    <if test="_parameter != null" >
+	      <include refid="Update_By_Example_Where_Clause" />
+	    </if>
+	  </update>
+	  <update id="updateByPrimaryKeySelective" parameterType="org.meiling.entity.Settings" >
+	    update settings
+	    <set >
+	      <if test="sName != null" >
+	        s_name = #{sName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sRemark != null" >
+	        s_remark = #{sRemark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHeadimg != null" >
+	        s_headImg = #{sHeadimg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sBgimg != null" >
+	        s_bgImg = #{sBgimg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sTitle != null" >
+	        s_title = #{sTitle,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHeadremark != null" >
+	        s_headRemark = #{sHeadremark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sWeibo != null" >
+	        s_weibo = #{sWeibo,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sWeixin != null" >
+	        s_weixin = #{sWeixin,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sQq != null" >
+	        s_qq = #{sQq,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sQqs != null" >
+	        s_qqs = #{sQqs,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sZfbpay != null" >
+	        s_zfbPay = #{sZfbpay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sWxpay != null" >
+	        s_wxPay = #{sWxpay,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sMywx != null" >
+	        s_mywx = #{sMywx,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHeadimgbg != null" >
+	        s_headImgBg = #{sHeadimgbg,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sHmd != null" >
+	        s_hmd = #{sHmd,jdbcType=LONGVARCHAR},
+	      </if>
+	    </set>
+	    where s_id = #{sId,jdbcType=VARCHAR}
+	  </update>
+	  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.meiling.entity.Settings" >
+	    update settings
+	    set s_name = #{sName,jdbcType=VARCHAR},
+	      s_remark = #{sRemark,jdbcType=VARCHAR},
+	      s_headImg = #{sHeadimg,jdbcType=VARCHAR},
+	      s_bgImg = #{sBgimg,jdbcType=VARCHAR},
+	      s_title = #{sTitle,jdbcType=VARCHAR},
+	      s_headRemark = #{sHeadremark,jdbcType=VARCHAR},
+	      s_weibo = #{sWeibo,jdbcType=VARCHAR},
+	      s_weixin = #{sWeixin,jdbcType=VARCHAR},
+	      s_qq = #{sQq,jdbcType=VARCHAR},
+	      s_qqs = #{sQqs,jdbcType=VARCHAR},
+	      s_zfbPay = #{sZfbpay,jdbcType=VARCHAR},
+	      s_wxPay = #{sWxpay,jdbcType=VARCHAR},
+	      s_mywx = #{sMywx,jdbcType=VARCHAR},
+	      s_headImgBg = #{sHeadimgbg,jdbcType=VARCHAR},
+	      s_hmd = #{sHmd,jdbcType=LONGVARCHAR}
+	    where s_id = #{sId,jdbcType=VARCHAR}
+	  </update>
+	  <update id="updateByPrimaryKey" parameterType="org.meiling.entity.Settings" >
+	    update settings
+	    set s_name = #{sName,jdbcType=VARCHAR},
+	      s_remark = #{sRemark,jdbcType=VARCHAR},
+	      s_headImg = #{sHeadimg,jdbcType=VARCHAR},
+	      s_bgImg = #{sBgimg,jdbcType=VARCHAR},
+	      s_title = #{sTitle,jdbcType=VARCHAR},
+	      s_headRemark = #{sHeadremark,jdbcType=VARCHAR},
+	      s_weibo = #{sWeibo,jdbcType=VARCHAR},
+	      s_weixin = #{sWeixin,jdbcType=VARCHAR},
+	      s_qq = #{sQq,jdbcType=VARCHAR},
+	      s_qqs = #{sQqs,jdbcType=VARCHAR},
+	      s_zfbPay = #{sZfbpay,jdbcType=VARCHAR},
+	      s_wxPay = #{sWxpay,jdbcType=VARCHAR},
+	      s_mywx = #{sMywx,jdbcType=VARCHAR},
+	      s_headImgBg = #{sHeadimgbg,jdbcType=VARCHAR}
+	    where s_id = #{sId,jdbcType=VARCHAR}
+	  </update>
+	</mapper>

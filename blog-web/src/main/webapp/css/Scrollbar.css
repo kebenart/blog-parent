@@ -1,0 +1,23 @@
+
+
+.cbp_tmtimeline { margin: 30px 0 0 0; padding: 0; list-style: none; position: relative; }
+.cbp_tmtimeline:before { content: ''; position: absolute; top: 0; bottom: 0; width: 5px; background: #afdcf8; left: 158px; margin-left: -10px; }
+.cbp_tmtimeline > li { position: relative; }
+.cbp_tmtimeline > li .cbp_tmtime { display: block; width: 100px; padding-right: 30px; position: absolute; margin-left: 20px }
+.cbp_tmtimeline > li .cbp_tmtime span { display: block; text-align: right; }
+.cbp_tmtimeline > li .cbp_tmtime span:first-child { font-size: 14px; color: #bdd0db; }
+.cbp_tmtimeline > li .cbp_tmtime span:last-child { font-size: 22px; color: #FFFFFF; }
+.cbp_tmtimeline > li:nth-child(odd) .cbp_tmtime span:last-child { color:#C9C7C7; }
+.cbp_tmtimeline > li .cbp_tmlabel { margin: 0 30px 15px 180px;border:1px solid #D6D6D6;box-shadow: 2px 4px 6px #8D8F91; background: #FFFFFF; color:#020202; padding: 2em; position: relative; border-radius: 5px; height: 150px; }
+.cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel { background: #C9C7C7; color:#FFFFFF }
+.cbp_tmtimeline > li .cbp_tmlabel h2 { margin-top: 0px; padding: 0 0 10px 0; font-size: 16px; text-shadow: rgba(7, 84, 152, 0.71) 1px 1px 1px; }
+.cbp_tmtimeline > li .cbp_tmlabel:after { right: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; border-right-color: #D6D6D6; border-width: 10px; top: 10px; }
+.cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after { border-right-color: #C9C7C7;}
+.cbp_tmtimeline > li .cbp_tmicon { width: 10px; height: 10px; font-family: 'ecoico'; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; font-size: 1.4em; line-height: 40px; -webkit-font-smoothing: antialiased; position: absolute; color: #fff; background: #46a4da; border-radius: 50%; box-shadow: 0 0 0 3px #afdcf8; text-align: center; left: 170px; top: 15px; margin: 0 0 0 -25px; }
+.blogpic { width: 200px; height: 120px; overflow: hidden; display: block; float: left; margin-right: 20px; }
+.blogpic img { width: 100%; height: auto; margin: auto; }
+a.readmore { background: #3388FF; color: #fff; padding: 5px 10px; float: right; margin: 20px 0 0 0; border-radius: 5px; }
+.cbp_tmtimeline li .cbp_tmtime { -webkit-transition: all 1s; -moz-transition: all 1s; -o-transition: all 1s; }
+.cbp_tmtimeline li:hover .cbp_tmicon { box-shadow: 0 0 0 3px #ececec; }
+.cbp_tmtimeline li:hover .cbp_tmtime { background: #3388FF; border-radius: 20px 0 0 20px; }
+.cbp_tmtimeline li:hover .cbp_tmtime span { color: #fff; }
